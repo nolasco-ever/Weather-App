@@ -1,5 +1,4 @@
 import React from "react";
-import { useSpring, useTrail, animated, interpolate, Trail } from "react-spring";
 
 //Import all icons
 import thunderstormDay from "./icons/thunderstorm-day.png";
@@ -21,7 +20,7 @@ function Card({key, timeOfDay, day, temp, cloudType, clouds, high, low}){
     var weatherIcon;
 
     // Assign weather icon depending on time of day and cloud type
-    if(timeOfDay == true){
+    if(timeOfDay === true){
         switch(cloudType){
             case "Thunderstorm":
                 weatherIcon = thunderstormDay;

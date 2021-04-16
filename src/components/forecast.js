@@ -1,10 +1,10 @@
 import React from "react";
-import { useSpring, useTrail, animated, interpolate } from "react-spring";
+import { useSpring, useTrail, animated } from "react-spring";
 
 // Import component
 import Card from "./card";
 
-function Forecast({todayForecast, forecasts, animate, setAnimate, isDay}){
+function Forecast({key, todayForecast, forecasts, animate, isDay}){
 
     const springProps = useSpring({
         opacity: 1,
@@ -79,9 +79,9 @@ function Forecast({todayForecast, forecasts, animate, setAnimate, isDay}){
     console.log(todayForecast);
     
     return(
-        <div style={{display: todayForecast[0].id == undefined ? "none" : null}} className="container">
+        <div style={{display: todayForecast[0].id === undefined ? "none" : null}} className="container">
             <div className="today-card-container">
-                    <animated.div style={animate == true ? springProps : springPropsExit} className="card">
+                    <animated.div style={animate === true ? springProps : springPropsExit} className="card">
                         <Card
                             key={todayForecast[0].id}
                             day={todayForecast[0].day}
@@ -97,7 +97,7 @@ function Forecast({todayForecast, forecasts, animate, setAnimate, isDay}){
 
             <div className="cards-container">
                 {forecasts.map((forecast, index) => (
-                     <animated.div style={animate == true ? trailProps[index] : trailPropsExit[index]} className="card">
+                     <animated.div style={animate === true ? trailProps[index] : trailPropsExit[index]} className="card">
                         <Card
                             key={forecast.id}
                             day={forecast.day}

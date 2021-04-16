@@ -1,27 +1,9 @@
 import React, {useState} from "react";
-import { useSpring, useTrail, animated, interpolate } from "react-spring";
-import {CSVReader} from "react-papaparse";
 import './App.css';
 
 // Import component
 import Forecast from "./components/forecast";
 import Suggestions from "./components/suggestions";
-
-//Import all icons
-import thunderstormDay from "./components/icons/thunderstorm-day.png";
-import thunderstormNight from "./components/icons/thunderstorm-night.png";
-import drizzleDay from "./components/icons/drizzle-day.png";
-import drizzleNight from "./components/icons/drizzle-night.png";
-import rainDay from "./components/icons/rain-day.png";
-import rainNight from "./components/icons/rain-night.png";
-import snowDay from "./components/icons/snow-day.png";
-import snowNight from "./components/icons/snow-night.png";
-import clearDay from "./components/icons/clear-day.png";
-import clearNight from "./components/icons/clear-night.png";
-import cloudyDay from "./components/icons/cloudy-day.png";
-import cloudyNight from "./components/icons/cloudy-night.png";
-import fogDay from "./components/icons/fog-day.png";
-import fogNight from "./components/icons/fog-night.png";
 
 const API_key = "fae6fa0ed6e96f99493161cd7089d3a1";
 
@@ -29,10 +11,19 @@ function App() {
   const [inputText, setInputText] = useState("");
   const [cityName, setCityName] = useState("Search for a city...");
   const [todayForecast, setTodayForecast] = useState([0]);
-  const [forecasts, setForecasts] = useState([]);
+  const [forecasts, setForecasts] = useState([{
+          id: "",
+          day: "",
+          timeOfDay: true,
+          temp: "",
+          cloudsType: "",
+          clouds: "",
+          high: "",
+          low: ""
+  }]);
   const [animate, setAnimate] = useState(true);
   const [submitForm, setSubmitForm] = useState(false);
-  const [cities, setCities] = useState([
+  const [cities] = useState([
     {city: 'Abbeville', state: 'Louisiana'},
   {city: 'Aberdeen', state: 'Maryland'},
   {city: 'Aberdeen', state: 'Mississippi'},
@@ -6025,13 +6016,13 @@ function App() {
     setInputText(e.target.value);
     setSuggest([]);
 
-    if(e.target.value == ""){
-      if(animate != true){
+    if(e.target.value === ""){
+      if(animate !== true){
         setAnimate(true);
       }
     }
     else{
-      if(animate != false){
+      if(animate !== false){
         setAnimate(false);
       }
     }
@@ -6147,7 +6138,7 @@ function App() {
         var dateObject = new Date(data.daily[i].dt * 1000);
         var day = dateObject.toLocaleString("en-US", {weekday: "long"});
 
-        if(i == 0){
+        if(i === 0){
           weekDays[i] = 'Today';
         }
         else{
@@ -6175,7 +6166,7 @@ function App() {
       var highArr = new Array(numOfDays);
       var lowArr = new Array(numOfDays);
 
-      for(var i = 0; i < numOfDays; i++){
+      for(i = 0; i < numOfDays; i++){
         tempArr[i] = data.daily[i].temp.day;
         cloudsTypeArr[i] = data.daily[i].weather[0].main;
         cloudsArr[i] = data.daily[i].weather[0].description;
@@ -6194,7 +6185,7 @@ function App() {
         low: lowArr[0]}])
 
       // Set week's forecast
-      for(var i = 1; i < weekDays.length; i++){
+      for(i = 1; i < weekDays.length; i++){
         setForecasts((forecasts) => [...forecasts, {id: Math.random() * 1000,
           day: weekDays[i],
           timeOfDay: true,
@@ -6212,29 +6203,29 @@ function App() {
     setInputText("");
   };
 
-  console.log("IS DAY: ", isDay);
+  console.log("TODAY FORECAST ID: ", todayForecast);
+  console.log("WEEK FORECAST ID: ", forecasts);
+  const forecastKey = Math.random() * 10000;
 
   return (
-    <div className="App">
-      <body style={
-        isDay == true ? {background: "-webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5)",  /* Chrome 10-25, Safari 5.1-6 */
-                         background: "linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5)", /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-                         color: "#000"
-        } : {background: "-webkit-linear-gradient(to right, #243B55, #141E30)",  /* Chrome 10-25, Safari 5.1-6 */
-             background: "linear-gradient(to right, #243B55, #141E30)", /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-          color: "#fff"
-          }
-      }>
+    <div className="App" style={
+      isDay === true ? {background: "linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5)", /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                       color: "#000"
+      } : {background: "linear-gradient(to right, #243B55, #141E30)", /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        color: "#fff"
+        }
+    }>
       <header className="App-header">
         {/* <img className="logo" src=""/> */}
         <div className="search-bar-container">
           <form id="search-bar-form" onSubmit={getWeatherData} className="search-bar"
-                style={isDay == true ? {border: "1px #000 solid"} : {border: "1px #fff solid"}}>
-            <img src="https://cdn2.iconfinder.com/data/icons/font-awesome/1792/search-512.png"/>
+                style={isDay === true ? {border: "1px #000 solid"} : {border: "1px #fff solid"}}>
+            <img src="https://cdn2.iconfinder.com/data/icons/font-awesome/1792/search-512.png" alt="search-icon"/>
             <input value={inputText} onChange={inputTextHandler} placeholder="City, State"
-                    style={isDay == true ? {color: "#000"} : {color: "#fff"}}/>
+                    style={isDay === true ? {color: "#000"} : {color: "#fff"}}/>
           </form>
           <Suggestions
+            key={Math.random()*1000}
             suggest={suggest}
             inputText={inputText}
             setInputText={setInputText}
@@ -6245,16 +6236,16 @@ function App() {
         </div>
       </header>
 
-      <div className="location-ttl"><h3>{animate == true ? cityName : "Search for a city..."}</h3></div>
-
+      <div className="location-ttl"><h3>{animate === true ? cityName : "Search for a city..."}</h3></div>
+    
       <Forecast
+        key={forecastKey}
         todayForecast={todayForecast}
         forecasts={forecasts}
         animate={animate}
         setAnimate={setAnimate}
         isDay={isDay}
       />
-      </body>
     </div>
   );
 }
