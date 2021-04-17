@@ -6006,8 +6006,6 @@ function App() {
 {city: 'Zuni Pueblo', state: 'New Mexico'}
   ])
 
-  console.log(cities[0].city);
-
   // Create state of suggestions based on inputText
   const [suggest, setSuggest] = useState([]);
   const [isDay, setIsDay] = useState(true);
@@ -6127,8 +6125,6 @@ function App() {
       ).then((res) => res.json())
       .then((data) => data);
 
-      console.log(data);
-
       // Create array of that will hold converted unix timestamps to weekdays
       var numOfDays = data.daily.length - 1;
       var weekDays = new Array(numOfDays);
@@ -6185,15 +6181,15 @@ function App() {
         low: lowArr[0]}])
 
       // Set week's forecast
-      for(i = 1; i < weekDays.length; i++){
+      for(let k = 1; k < weekDays.length; k++){
         setForecasts((forecasts) => [...forecasts, {id: Math.random() * 1000,
-          day: weekDays[i],
+          day: weekDays[k],
           timeOfDay: true,
-          temp: tempArr[i],
-          cloudsType: cloudsTypeArr[i],
-          clouds: cloudsArr[i],
-          high: highArr[i],
-          low: lowArr[i]},])
+          temp: tempArr[k],
+          cloudsType: cloudsTypeArr[k],
+          clouds: cloudsArr[k],
+          high: highArr[k],
+          low: lowArr[k]},])
       }
     }
     else{
@@ -6202,10 +6198,6 @@ function App() {
 
     setInputText("");
   };
-
-  console.log("TODAY FORECAST ID: ", todayForecast);
-  console.log("WEEK FORECAST ID: ", forecasts);
-  const forecastKey = Math.random() * 10000;
 
   return (
     <div className="App" style={

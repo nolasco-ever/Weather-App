@@ -16,7 +16,7 @@ function Suggestions({suggest, inputText, setInputText, getWeatherData}){
         <div className="suggestions-container" style={textbox === true ? {display: "block"} : {display: "none"}}>
             <div className="box">
                 {suggest.map((suggestion, index) => (
-                    <div className="searching-container" onMouseOver={() => chooseLocation(suggestion.city+", "+suggestion.state)} onClick={getWeatherData}>
+                    <div key={index} className="searching-container" onMouseOver={() => chooseLocation(suggestion.city+", "+suggestion.state)} onClick={getWeatherData}>
                         <p>{suggestion.city+", "+suggestion.state}</p>
 
                         {/* <div className="searching-info">
