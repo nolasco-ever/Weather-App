@@ -4,7 +4,7 @@ import { useSpring, useTrail, animated } from "react-spring";
 // Import component
 import Card from "./card";
 
-function Forecast({key, todayForecast, forecasts, animate, isDay}){
+function Forecast({todayForecast, forecasts, animate, isDay}){
 
     const springProps = useSpring({
         opacity: 1,
@@ -83,7 +83,6 @@ function Forecast({key, todayForecast, forecasts, animate, isDay}){
             <div className="today-card-container">
                     <animated.div style={animate === true ? springProps : springPropsExit} className="card">
                         <Card
-                            key={todayForecast[0].id}
                             day={todayForecast[0].day}
                             timeOfDay={isDay}
                             temp={todayForecast[0].temp}
@@ -97,9 +96,8 @@ function Forecast({key, todayForecast, forecasts, animate, isDay}){
 
             <div className="cards-container">
                 {forecasts.map((forecast, index) => (
-                     <animated.div style={animate === true ? trailProps[index] : trailPropsExit[index]} className="card">
+                     <animated.div style={animate === true ? trailProps[index] : trailPropsExit[index]} key={index} className="card">
                         <Card
-                            key={forecast.id}
                             day={forecast.day}
                             timeOfDay={forecast.timeOfDay}
                             temp={forecast.temp}

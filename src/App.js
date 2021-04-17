@@ -6239,7 +6239,6 @@ function App() {
       <div className="location-ttl"><h3>{animate === true ? cityName : "Search for a city..."}</h3></div>
     
       <Forecast
-        key={forecastKey}
         todayForecast={todayForecast}
         forecasts={forecasts}
         animate={animate}

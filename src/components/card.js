@@ -74,7 +74,7 @@ function Card({key, timeOfDay, day, temp, cloudType, clouds, high, low}){
             <h3 className="day">{day}</h3>
 
             <div className="temp-cloud-container">
-                <h1 className="temp">{Math.round(temp)}&deg;</h1>
+                <h1 className="temp">{isNaN(temp) ? "NaN" : Math.round(temp)}&deg;</h1>
                 <img className="cloud-icon" src={weatherIcon} alt="weather-icon"/>
             </div>
 
@@ -84,11 +84,11 @@ function Card({key, timeOfDay, day, temp, cloudType, clouds, high, low}){
                 <div className="high-low">
                     <div>
                         <p>High</p>
-                        <p>{Math.round(high)}</p>
+                        <p>{isNaN(high) ? "NaN" : Math.round(high)}</p>
                     </div>
                     <div>
                         <p>Low</p>
-                        <p>{Math.round(low)}</p>
+                        <p>{isNaN(low) ? "NaN" : Math.round(low)}</p>
                     </div>
                 </div>
             </div>
