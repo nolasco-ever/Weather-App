@@ -1232,8 +1232,6 @@ function App() {
 {city: 'Cypress', state: 'California'},
 {city: 'Cypress Gardens', state: 'Florida'},
 {city: 'Cypress Lake', state: 'Florida'},
-  
-{city: 'D’Iberville', state: 'Mississippi'},
 {city: 'Dade City', state: 'Florida'},
 {city: 'Dale City', state: 'Virginia'},
 {city: 'Dalhart', state: 'Texas'},
