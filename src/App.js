@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import './App.css';
+import logoDay from "./components/icons/logo-day.png";
+import logoNight from "./components/icons/logo-night.png";
 
 // Import component
 import Forecast from "./components/forecast";
@@ -6123,6 +6125,8 @@ function App() {
       ).then((res) => res.json())
       .then((data) => data);
 
+      console.log(data);
+
       // Create array of that will hold converted unix timestamps to weekdays
       var numOfDays = data.daily.length - 1;
       var weekDays = new Array(numOfDays);
@@ -6206,7 +6210,7 @@ function App() {
         }
     }>
       <header className="App-header">
-        {/* <img className="logo" src=""/> */}
+        <img className="logo" src={isDay === true ? logoDay : logoNight}/>
         <div className="search-bar-container">
           <form id="search-bar-form" onSubmit={getWeatherData} className="search-bar"
                 style={isDay === true ? {border: "1px #000 solid"} : {border: "1px #fff solid"}}>
